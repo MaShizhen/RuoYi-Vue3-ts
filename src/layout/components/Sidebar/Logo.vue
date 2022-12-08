@@ -55,7 +55,7 @@ defineProps({
     },
 });
 
-const title = ref('若依管理系统');
+const title = ref('Gifs管理系统');
 const settingsStore = useSettingsStore();
 const sideTheme = computed(() => settingsStore.sideTheme);
 </script>

@@ -2,6 +2,7 @@
     "name": "ruo-yi-vue3-ts",
     "private": true,
     "version": "3.8.4",
+    "description": "Gifs管理系统",
     "scripts": {
         "dev": "vite",
         "build:prod": "vite build",
@@ -10,6 +11,7 @@
     },
     "dependencies": {
         "@element-plus/icons-vue": "2.0.10",
+        "@types/qs": "^6.9.7",
         "@vueuse/core": "9.5.0",
         "@zeronejs/utils": "^1.4.0",
         "axios": "0.27.2",
@@ -20,7 +22,9 @@
         "js-cookie": "3.0.1",
         "jsencrypt": "3.3.1",
         "nprogress": "0.2.0",
+        "number-precision": "^1.6.0",
         "pinia": "2.0.22",
+        "qs": "^6.11.0",
         "vue": "3.2.45",
         "vue-cropper": "1.0.3",
         "vue-router": "4.1.4"

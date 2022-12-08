@@ -52,7 +52,7 @@ module.exports = {
                 SwitchCase: 1,
             },
         ],
-        camelcase: 2,
+        // camelcase: 2,
         'vue/no-empty-component-block': 2, // 禁止<template> <script> <style>块为空
         'vue/html-self-closing': 0,
         'vue/max-attributes-per-line': 0,
@@ -60,7 +60,7 @@ module.exports = {
         'vue/attribute-hyphenation': 0,
         'vue/multi-word-component-names': 0,
         'vue/html-indent': 0,
-        'vue/v-on-event-hyphenation': [2, 'never'],
+        // 'vue/v-on-event-hyphenation': [2, 'always'],
         // Enable vue/script-setup-uses-vars rule
     },
 };

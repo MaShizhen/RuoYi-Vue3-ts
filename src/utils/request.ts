@@ -7,6 +7,7 @@ import { tansParams, blobValidate } from '@/utils/ruoyi';
 import cache from '@/plugins/cache';
 import { saveAs } from 'file-saver';
 import useUserStore from '@/store/modules/user';
+import { stringify } from 'qs';
 
 let downloadLoadingInstance: ReturnType<typeof ElLoading.service>;
 
@@ -30,7 +31,7 @@ service.interceptors.request.use(
         // 是否需要设置 token
         const isToken = (config.headers || {}).isToken === false;
         // 是否需要防止数据重复提交
-        const isRepeatSubmit = (config.headers || {}).repeatSubmit === false;
+        const isRepeatSubmit = (config.headers || {}).repeatSubmit === true;
         if (getToken() && !isToken && config.headers) {
             config.headers['Authorization'] = 'Bearer ' + getToken(); // 让每个请求携带自定义token 请根据实际情况自行修改
         }
@@ -41,7 +42,13 @@ service.interceptors.request.use(
             config.params = {};
             config.url = url;
         }
-        if (!isRepeatSubmit && (config.method === 'post' || config.method === 'put')) {
+        if (config?.CONTENT_TYPE === 'form' && config.headers) {
+            config.headers['Content-Type'] = 'application/x-www-form-urlencoded; charset=UTF-8';
+            if (typeof config.data === 'object') {
+                config.data = stringify(config.data);
+            }
+        }
+        if (isRepeatSubmit && (config.method === 'post' || config.method === 'put')) {
             const requestObj = {
                 url: config.url,
                 data: typeof config.data === 'object' ? JSON.stringify(config.data) : config.data,
@@ -120,12 +127,10 @@ service.interceptors.response.use(
                 type: 'warning',
             });
             return Promise.reject(new Error(msg));
-        } else if (code !== 200) {
-            ElNotification.error({
-                title: msg,
-            });
+        } else if (code !== 200 && code !== 10000) {
+            ElNotification.error({ title: msg });
             return Promise.reject('error');
-        } else {
+        }  else {
             return Promise.resolve(res.data);
         }
     },
